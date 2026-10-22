@@ -1,0 +1,17 @@
+@model Habitacion
+@{
+    ViewData["Title"] = "Editar habitación";
+}
+
+<h1>Editar habitación</h1>
+
+<form asp-action="Edit" asp-route-id="@Model.IdHabitacion" class="col-md-6">
+    <input type="hidden" asp-for="IdHabitacion" />
+    <partial name="_Form" model="Model" />
+    <button class="btn btn-primary">Guardar cambios</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,62 @@
+@model IEnumerable<Habitacion>
+@{
+    ViewData["Title"] = "Disponibilidad";
+    var noches = (int?)ViewBag.Noches ?? 0;
+}
+
+<h1>Disponibilidad</h1>
+
+<form asp-action="Disponibles" method="get" class="row g-2 align-items-end mb-4">
+    <div class="col-sm-6 col-md-3">
+        <label class="form-label" for="ingreso">Fecha de ingreso</label>
+        <input type="date" class="form-control" id="ingreso" name="ingreso" value="@ViewBag.Ingreso" />
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <label class="form-label" for="salida">Fecha de salida</label>
+        <input type="date" class="form-control" id="salida" name="salida" value="@ViewBag.Salida" />
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary">Consultar</button>
+        <a class="btn btn-outline-secondary" asp-action="Disponibles">Limpiar</a>
+    </div>
+    <div class="col-12">
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+</form>
+
+@if (ViewBag.Consultado == true)
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Piso</th>
+                <th>Tipo</th>
+                <th class="text-center">Capacidad</th>
+                <th class="text-end">Precio por noche</th>
+                <th class="text-center">Noches</th>
+                <th class="text-end">Total estimado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in Model)
+            {
+                var total = noches * h.IdTipoHabitacionNavigation.PrecioNoche;
+                <tr>
+                    <td>@h.Numero</td>
+                    <td>@h.Piso</td>
+                    <td>@h.IdTipoHabitacionNavigation.Nombre</td>
+                    <td class="text-center">@h.IdTipoHabitacionNavigation.Capacidad</td>
+                    <td class="text-end">@h.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</td>
+                    <td class="text-center">@noches</td>
+                    <td class="text-end">@total.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p class="text-muted">No hay habitaciones disponibles en ese rango.</p>
+    }
+}

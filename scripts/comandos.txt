@@ -1,0 +1,7 @@
+cd Hotel.Web
+
+dotnet tool install --global dotnet-ef
+
+dotnet ef dbcontext scaffold "Server=ALDAIR\SQLEXPRESS;Database=HotelDB;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models --context HotelContext --no-onconfiguring
+
+dotnet ef dbcontext scaffold "Server=ALDAIR\SQLEXPRESS;Database=HotelDB;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models --context HotelContext --no-onconfiguring --force

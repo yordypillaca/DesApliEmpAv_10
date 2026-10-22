@@ -1,0 +1,22 @@
+@model Habitacion
+@{
+    ViewData["Title"] = "Habitación " + Model.Numero;
+}
+
+<h1>Habitación @Model.Numero</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Número</dt>
+    <dd class="col-sm-9">@Model.Numero</dd>
+    <dt class="col-sm-3">Piso</dt>
+    <dd class="col-sm-9">@Model.Piso</dd>
+    <dt class="col-sm-3">Tipo</dt>
+    <dd class="col-sm-9">@Model.IdTipoHabitacionNavigation.Nombre</dd>
+    <dt class="col-sm-3">Capacidad</dt>
+    <dd class="col-sm-9">@Model.IdTipoHabitacionNavigation.Capacidad</dd>
+    <dt class="col-sm-3">Precio por noche</dt>
+    <dd class="col-sm-9">@Model.IdTipoHabitacionNavigation.PrecioNoche.ToString("C")</dd>
+</dl>
+
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.IdHabitacion">Editar</a>
+<a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
